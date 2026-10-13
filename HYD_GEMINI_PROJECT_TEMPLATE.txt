@@ -1,0 +1,83 @@
+====================================================================================================
+VAULTGUARD: ENTERPRISE CREDIT UNDERWRITING & COMPLIANCE AI COPILOT
+Event Track: Track 3 — App Builders (Agent-First Workflows)
+Architecture: 100% Native Google Cloud Platform (Zero Third-Party Libraries or APIs)
+Core Engine: Google Gemini 1.5 Flash Native Function Calling & Multi-Turn State Machine
+Target Users: Bank Branch Loan Officers, Credit Underwriters & Compliance Teams (Human-in-the-Loop)
+Deployment: Single Container Google Cloud Run (Serverless Autoscaling in asia-south1, Zero Idle Cost)
+====================================================================================================
+
+PROJECT DIRECTORY BLUEPRINT (100% NATIVE GOOGLE STACK — ZERO THIRD-PARTY FRAMEWORKS)
+----------------------------------------------------------------------------------------------------
+vaultguard-agent/
+├── .agents/                         # 5-LAYER PERSISTENT AGENT BRAIN
+│   ├── AGENTS.md                    # Core rules, 100% GCP mandate & 4-Agent team roles
+│   ├── STATE.md                     # Real-time architectural snapshot & component health
+│   ├── CHANGELOG.md                 # Chronological build & action history
+│   └── skills/                      # 11 Specialized On-Demand Skills (GCP, Native Tools, DLP, RAG)
+├── config/
+│   └── settings.yaml                # GCP Project ID, region (asia-south1), Cloud DLP infoTypes, 65% LTV cap
+├── app/
+│   └── main.py                      # UNIFIED CORE ENGINE:
+│                                    #   • GET  /                -> Serves embedded Glassmorphic Web UI
+│                                    #   • POST /api/chat        -> Gemini Native ReAct Agent with dynamic tool calling
+│                                    #   • POST /api/underwrite  -> Multimodal PDF document inspection & 65% LTV cap
+│                                    #   • GET  /health          -> Liveness, active sessions & platform probe
+├── ai/
+│   ├── model_client.py              # Vertex AI / Google GenAI SDK client (Gemini 1.5 Flash ADC)
+│   ├── prompts.py                   # Grounded credit underwriting prompt templates & refusal constraints
+│   ├── guardrail.py                 # Gateway Zero-Compute Intent Guardrail (<1ms rejection of off-topic drift)
+│   └── tools/
+│       ├── __init__.py
+│       ├── loan_calculator.py       # Deterministic Loan EMI amortization calculator (Exact Python math)
+│       └── underwriting_rules.py    # Collateral LTV verification (65% cap) & FOIR (50% income cap) rules
+├── rag/
+│   ├── loader.py                    # Google Cloud Storage (GCS) loader for regulatory circulars & deeds
+│   ├── sanitizer.py                 # Google Cloud Sensitive Data Protection (Cloud DLP API: dlp_v2)
+│   ├── chunker.py                   # Parent-Child hierarchical splitter (2000-char parent / 400-char child)
+│   ├── embedder.py                  # Google Vertex AI text-embedding-004 model
+│   ├── vector_store.py              # Google Cloud Firestore Vector Search / Vertex AI Vector Search
+│   └── ranker.py                    # Google Vertex AI Search Ranking API (semantic-ranker-512@latest)
+├── data/
+│   ├── rbi_regulatory_corpus/       # 545KB+ official RBI Master Circulars (Housing Finance, IRACP, KYC, EBLR)
+│   └── customer_artifacts/          # Customer property sale deeds (Hyderabad Jubilee Hills with PAN/Aadhaar)
+├── tests/
+│   ├── test_vertical_slice.py       # Smoke test verifying Web UI -> API -> Gemini -> UI
+│   ├── test_guardrail.py            # Proves off-topic queries ("I love iPhone") are rejected in <1ms
+│   ├── test_underwriting.py         # Verifies collateral deed analysis and 65% LTV mathematical cap
+│   ├── test_gcp_dlp.py              # Verifies Indian PAN / Aadhaar masking via Cloud DLP API
+│   └── test_tools.py                # Verifies deterministic loan EMI calculations
+├── Dockerfile                       # Multi-stage production container build for Google Cloud Run
+├── requirements.txt                 # Pinned 100% Google Native dependencies for Google Cloud Build
+├── .env.example                     # Template for GCP_PROJECT_ID, GEMINI_API_KEY, GCP_REGION
+├── .gitignore                       # Guards .env, secrets, and local storage
+└── README.md                        # Project overview, architecture diagrams, and quickstart commands
+
+====================================================================================================
+THE 4 DEVELOPER AGENTS SQUAD (AGENT-FIRST COLLABORATION)
+====================================================================================================
+1. @rag-engineer:
+   - Owns `rag/loader.py`, `rag/chunker.py`, and `data/rbi_regulatory_corpus/`.
+   - Ingests and indexes 545KB RBI regulatory guidelines so the copilot never hallucinates bank policy.
+2. @agent-orchestrator:
+   - Owns `ai/state.py` and `ai/tools/`.
+   - Manages Gemini Native Multi-Turn function calling and enforces exact loan amortization math.
+3. @compliance-guard:
+   - Owns `ai/guardrail.py` and `rag/sanitizer.py`.
+   - Enforces <1ms zero-compute prompt drift rejection and Google Cloud DLP PII sanitization.
+4. @fullstack-devops:
+   - Owns `app/main.py`, `Dockerfile`, and Cloud Run serverless deployment in `asia-south1`.
+
+====================================================================================================
+100% NATIVE GOOGLE CLOUD SERVICES MATRIX (WHAT TO SHOWCASE TO JUDGES)
+====================================================================================================
+• Foundation Model:      Google Gemini 1.5 Flash (1M token context, sub-second latency)
+• Native Agent Engine:   Google Gemini Function Calling & Multi-Turn Chat (client.chats.create)
+• Multimodal Inspection: Native Gemini PDF Byte Tokens (Zero 3rd-party OCR engines)
+• Security & Governance: Google Cloud Sensitive Data Protection (Cloud DLP dlp_v2)
+• Document Storage:      Google Cloud Storage (GCS bucket vault)
+• State Management:      Google Cloud Firestore / Native session store
+• Semantic Ranking:      Vertex AI Search Ranking API (semantic-ranker-512@latest)
+• Serverless Compute:    Google Cloud Run (asia-south1 / Mumbai container runtime)
+• Container Packaging:   Google Cloud Build (Serverless compile via --source .)
+====================================================================================================

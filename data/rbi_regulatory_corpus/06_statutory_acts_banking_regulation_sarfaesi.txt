@@ -1,0 +1,41 @@
+================================================================================
+CONSTITUTIONAL & STATUTORY LEGISLATIVE FRAMEWORK FOR INDIAN BANKING CREDIT
+Acts: The Banking Regulation Act, 1949 & The SARFAESI Act, 2002
+Enacted by: Parliament of India | Enforced by: Reserve Bank of India & Debt Recovery Tribunals
+================================================================================
+
+PART I: THE BANKING REGULATION ACT, 1949
+
+1. SECTION 20: RESTRICTIONS ON LOANS AND ADVANCES
+(1) No banking company shall:
+    (a) grant any loans or advances on the security of its own shares; or
+    (b) enter into any commitment for granting any loan or advance to or on behalf of:
+        (i) any of its directors;
+        (ii) any firm in which any of its directors is interested as partner, manager, employee or guarantor; or
+        (iii) any company of which any of the directors of the banking company is a director, managing agent, manager, employee or guarantor.
+
+2. SECTION 21: POWER OF RESERVE BANK TO CONTROL ADVANCES BY BANKING COMPANIES
+(1) Where the Reserve Bank is satisfied that it is necessary or expedient in the public interest or in the interests of depositors or banking policy so to do, it may determine the policy in relation to advances to be followed by banking companies generally or by any banking company in particular.
+(2) Without prejudice to the generality of the power conferred by sub-section (1), the Reserve Bank may give directions to banking companies, either generally or to any banking company or group of banking companies in particular, as to:
+    (a) the purposes for which advances may or may not be made;
+    (b) the margins to be maintained in respect of secured advances (e.g. Statutory LTV caps of 65% - 80%);
+    (c) the maximum amount of advances or other financial accommodation which, having regard to the paid-up capital, reserves and deposits of a banking company and other relevant considerations, may be made to any one single borrower or group of interconnected borrowers;
+    (d) the maximum amount up to which, having regard to the considerations referred to in clause (c), guarantees may be given by a banking company on behalf of any one company, firm, association of persons or individual;
+    (e) the rate of interest and other terms and conditions on which advances or other financial accommodation may be made or guarantees may be given.
+
+3. SECTION 35A: POWER OF THE RESERVE BANK TO GIVE BINDING DIRECTIONS
+(1) Where the Reserve Bank is satisfied that in the public interest, or in the interest of banking policy, or to prevent the affairs of any banking company being conducted in a manner detrimental to the interests of the depositors, it is necessary to issue directions to banking companies, it may issue such directions as it deems fit, and the banking companies shall be bound to comply with such directions.
+
+PART II: THE SARFAESI ACT, 2002 (SECURITISATION AND RECONSTRUCTION OF FINANCIAL ASSETS AND ENFORCEMENT OF SECURITY INTEREST)
+
+1. SECTION 13(2): DEMAND NOTICE FOR RECOVERY OF SECURED DEBTS
+Where any borrower, who is under a liability to a secured creditor under a security agreement, makes any default in repayment of secured debt or any instalment thereof, and his account in respect of such debt is classified by the secured creditor as non-performing asset (NPA), then, the secured creditor may require the borrower by notice in writing to discharge in full his liabilities to the secured creditor within sixty (60) days from the date of notice, failing which the secured creditor shall be entitled to exercise all or any of the rights under sub-section (4).
+
+2. SECTION 13(4): RECOURSE OF SECURED CREDITOR UPON DEFAULT AFTER 60 DAYS
+In case the borrower fails to discharge his liability in full within the period specified in sub-section (2), the secured creditor may take recourse to one or more of the following measures to recover his secured debt, namely:
+    (a) take possession of the secured assets of the borrower including the right to transfer by way of lease, assignment or sale for realising the secured asset;
+    (b) take over the management of the business of the borrower including the right to transfer by way of lease, assignment or sale for realising the secured asset;
+    (c) appoint any person to manage the secured assets the possession of which has been taken over by the secured creditor.
+
+3. SECTION 14: CHIEF METROPOLITAN MAGISTRATE OR DISTRICT MAGISTRATE ASSISTANCE
+Where the possession of any secured asset is required to be taken by the secured creditor, the secured creditor may request the Chief Metropolitan Magistrate or District Magistrate within whose jurisdiction any such secured asset is situated to take possession thereof, and the Magistrate shall deliver possession to the authorized bank officer.
