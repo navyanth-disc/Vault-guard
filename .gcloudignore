@@ -1,0 +1,7 @@
+.gcloudignore
+.git
+.gitignore
+.agents
+__pycache__
+*.pyc
+tests
