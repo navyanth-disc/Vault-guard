@@ -69,3 +69,14 @@ Tasks are partitioned across 4 specialized agent roles to prevent code conflicts
 5. **Container Build & GCP Sandbox Auth**:
    - Always ensure `requirements.txt` exists (`cp HYD_GEMINI_REQUIREMENTS.txt requirements.txt`) before running `gcloud run deploy --source .`.
    - In Google Cloud Shell / Cloud Run, use Application Default Credentials (ADC) without hardcoding secret keys.
+
+6. **Universal Mobile & Cross-Device Responsiveness**:
+   - *Failure*: Desktop-only fixed widths (e.g. 460px admin drawer, rigid header pills) caused layout breakages on mobile phone viewports.
+   - *Fix & Law*: Implement universal responsive design with `100dvh`, `width: min(460px, 100vw)` drawers, horizontal-scroll telemetry headers, `16px` font inputs (prevents iOS auto-zoom), and `@media (max-width: 768px)` / `@media (max-width: 480px)` styles.
+
+7. **Mother Brain (Gemini 1.5 Flash) Calibration & RAG Manipulation Immunity**:
+   - *Failure*: Unfiltered conversational tokens ("know", "hey") manipulated RAG into matching "Know Your Customer" for city queries ("hey do you know Hyderabad rbi rules"), while uncalibrated Gemini client initialization timed out silently on Cloud Run.
+   - *Fix & Law*:
+     1. Treat conversational verbs (`know`, `knows`, `hey`, `hi`, `ask`, `check`) as stopwords to prevent RAG manipulation.
+     2. Dynamically calibrate `get_gemini_client()` for Vertex AI ADC (`GOOGLE_CLOUD_PROJECT`, `asia-south1`) and `GEMINI_API_KEY`.
+     3. Calibrate Gemini's system prompt with a strict relevance gate: abstain if the retrieved regulatory text does not address the officer's specific inquiry.

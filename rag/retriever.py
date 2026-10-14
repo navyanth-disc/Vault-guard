@@ -29,7 +29,8 @@ STOPWORDS = {
     "new", "rule", "rules", "circular", "circulars", "direction", "directions",
     "master", "act", "acts", "abotut", "regarding", "tell", "give", "show", "find",
     "latest", "recent", "today", "yesterday", "tomorrow", "update", "updates", "say", "says",
-    "please", "help"
+    "please", "help", "hey", "hi", "hello", "know", "knows", "known", "knew", "knowing",
+    "ask", "asks", "asked", "check", "checks", "checked", "see", "look", "want", "need"
 }
 
 # Ubiquitous boilerplate words that appear in virtually every RBI document.

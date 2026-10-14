@@ -184,6 +184,25 @@ async def ingest_document(
         "latency_ms": lat_ms
     }
 
+def get_gemini_client():
+    """
+    Calibrates Google GenAI client for Gemini 1.5 Flash:
+    1. If GEMINI_API_KEY is present -> Developer API.
+    2. If GOOGLE_CLOUD_PROJECT or GCP_PROJECT_ID is present -> Vertex AI (asia-south1 default).
+    3. Fallback to ADC auto-discovery.
+    """
+    from google import genai
+    api_key = os.environ.get("GEMINI_API_KEY") or API_KEY
+    project_id = os.environ.get("GOOGLE_CLOUD_PROJECT") or os.environ.get("GCP_PROJECT_ID") or PROJECT_ID
+    location = os.environ.get("GCP_REGION", "asia-south1")
+    
+    if api_key:
+        return genai.Client(api_key=api_key)
+    elif project_id:
+        return genai.Client(vertexai=True, project=project_id, location=location)
+    else:
+        return genai.Client()
+
 def synthesize_regulatory_response(query: str, hit: dict) -> str:
     """
     Synthesizes a fluent, grammatically complete regulatory response with citations.
@@ -192,21 +211,19 @@ def synthesize_regulatory_response(query: str, hit: dict) -> str:
     source = hit["source"]
     text = hit["text"]
     
-    # 1. Native Gemini 1.5 Flash synthesis if credentials/key available
-    if API_KEY or os.environ.get("GOOGLE_APPLICATION_CREDENTIALS") or os.environ.get("GCP_PROJECT_ID"):
+    # 1. Native Gemini 1.5 Flash synthesis with strict relevance adherence
+    if API_KEY or os.environ.get("GOOGLE_APPLICATION_CREDENTIALS") or os.environ.get("GCP_PROJECT_ID") or os.environ.get("GOOGLE_CLOUD_PROJECT"):
         try:
-            from google import genai
-            client = genai.Client()
+            client = get_gemini_client()
             prompt = (
                 f"You are VaultGuard, an Enterprise Credit Underwriting Copilot.\n"
                 f"Officer Query: {query}\n\n"
                 f"Official Regulatory Text from {source}:\n{text[:2000]}\n\n"
                 f"Instructions:\n"
-                f"1. Answer the officer's query strictly and faithfully based on the regulatory text.\n"
-                f"2. Formulate complete, well-structured, professional sentences.\n"
+                f"1. Strictly verify whether this regulatory text answers the officer's query. If the text does not directly answer the specific question, reply: 'I cannot find sufficient evidence in the official RBI Regulatory Corpus to substantiate an answer for this query. As an enterprise banking copilot, I abstain from guessing policy rules.'\n"
+                f"2. If relevant, formulate complete, well-structured, professional sentences.\n"
                 f"3. Cite the circular title and specific statutory provision.\n"
-                f"4. If evidence is insufficient, state that the official corpus lacks evidence and abstain.\n"
-                f"5. Do NOT guess or speculate."
+                f"4. Do NOT guess, hallucinate, or speculate."
             )
             resp = client.models.generate_content(
                 model="gemini-1.5-flash-002",
@@ -214,8 +231,8 @@ def synthesize_regulatory_response(query: str, hit: dict) -> str:
             )
             if resp.text and len(resp.text.strip()) > 30:
                 return resp.text.strip()
-        except Exception:
-            pass
+        except Exception as exc:
+            print(f"[Gemini 1.5 Flash] Synthesis warning: {exc}")
 
     # 2. Deterministic Clean Formulation: Complete sentences only, zero partial cuts
     body_text = re.sub(r'={5,}.*?={5,}', '', text, flags=re.DOTALL).strip()
@@ -419,7 +436,7 @@ def serve_ui():
             --text-muted: #94a3b8;
         }
         * { box-sizing: border-box; margin: 0; padding: 0; font-family: 'Inter', sans-serif; }
-        body { background: var(--bg); color: var(--text-main); height: 100vh; display: flex; flex-direction: column; overflow: hidden; }
+        body { background: var(--bg); color: var(--text-main); height: 100vh; height: 100dvh; display: flex; flex-direction: column; overflow: hidden; }
         
         /* Header */
         header {
@@ -578,9 +595,11 @@ def serve_ui():
         #admin-drawer {
             position: fixed;
             top: 0;
-            right: -480px;
-            width: 460px;
+            right: -100%;
+            width: min(460px, 100vw);
+            max-width: 100vw;
             height: 100vh;
+            height: 100dvh;
             background: #0f172a;
             border-left: 1px solid var(--border);
             box-shadow: -10px 0 30px rgba(0,0,0,0.7);
@@ -643,6 +662,76 @@ def serve_ui():
             justify-content: space-between;
             color: var(--text-muted);
         }
+
+        /* ─── UNIVERSAL RESPONSIVE STYLES (MOBILE / TABLET) ─── */
+        @media (max-width: 768px) {
+            header {
+                padding: 0.75rem 1rem;
+                gap: 0.5rem;
+            }
+            .brand-sub { display: none; }
+            .brand-title { font-size: 1.05rem; }
+            .header-actions {
+                gap: 0.4rem;
+                overflow-x: auto;
+                max-width: 60%;
+                -webkit-overflow-scrolling: touch;
+                scrollbar-width: none;
+            }
+            .header-actions::-webkit-scrollbar { display: none; }
+            .pill {
+                padding: 0.25rem 0.5rem;
+                font-size: 0.7rem;
+                white-space: nowrap;
+            }
+            .admin-btn {
+                padding: 0.35rem 0.65rem;
+                font-size: 0.75rem;
+                white-space: nowrap;
+            }
+            main {
+                padding: 0.75rem;
+            }
+            .msg {
+                max-width: 90%;
+                padding: 0.85rem 1rem;
+                font-size: 0.9rem;
+            }
+            .input-bar {
+                padding: 0.5rem 0.75rem;
+                gap: 0.5rem;
+                margin-top: 0.5rem;
+            }
+            input[type="text"] {
+                font-size: 16px; /* Prevents auto-zoom in mobile Safari */
+            }
+            #admin-drawer {
+                width: 100vw;
+                max-width: 100vw;
+                padding: 1rem;
+            }
+        }
+
+        @media (max-width: 480px) {
+            header {
+                padding: 0.5rem 0.75rem;
+            }
+            .brand-logo { font-size: 1.25rem; }
+            .brand-title { font-size: 0.95rem; }
+            #pill-dlp { display: none; }
+            .msg {
+                max-width: 96%;
+                font-size: 0.88rem;
+                padding: 0.75rem 0.85rem;
+            }
+            .send-btn {
+                padding: 0.5rem 0.85rem;
+                font-size: 0.85rem;
+            }
+            .metric-grid {
+                grid-template-columns: 1fr;
+            }
+        }
     </style>
 </head>
 <body>
@@ -656,7 +745,7 @@ def serve_ui():
         </div>
         <div class="header-actions">
             <div class="pill active">🟢 Gemini 1.5 Flash Live</div>
-            <div class="pill">🛡️ Zero-Trust DLP</div>
+            <div id="pill-dlp" class="pill">🛡️ Zero-Trust DLP</div>
             <div id="top-latency" class="pill latency">⚡ 0.2ms</div>
             <button class="admin-btn" onclick="toggleAdminDrawer()">⚙️ Admin & Metrics</button>
         </div>
