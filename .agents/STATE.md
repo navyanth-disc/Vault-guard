@@ -4,7 +4,7 @@
 - **Status**: Production-Ready Blueprint & Playbook Formatted for Hackathon Execution.
 - **Track**: Track 3 — App Builders (Agent-First Workflows)
 - **Deployment Target**: Google Cloud Run (Single-container serverless architecture in `asia-south1`)
-- **Primary Model**: Google Gemini 1.5 Flash (`gemini-1.5-flash-002`)
+- **Primary Model**: Google Gemini 2.5 Flash (`gemini-2.5-flash`) on Vertex AI
 
 ---
 

@@ -85,7 +85,7 @@ def health():
     return {
         "status": "HEALTHY",
         "app": "VaultGuard",
-        "model": "gemini-1.5-flash-002",
+        "model": "gemini-2.5-flash",
         "platform": "Google Cloud Run",
         "rbi_chunks_indexed": len(retriever.chunks),
         "active_sessions": len(sessions),
@@ -186,7 +186,7 @@ async def ingest_document(
 
 def get_gemini_client():
     """
-    Calibrates Google GenAI client for Gemini 1.5 Flash:
+    Calibrates Google GenAI client for Gemini 2.5 Flash on Vertex AI:
     1. If GEMINI_API_KEY is present -> Developer API.
     2. If GOOGLE_CLOUD_PROJECT or GCP_PROJECT_ID is present -> Vertex AI (asia-south1 default).
     3. Fallback to ADC auto-discovery.
@@ -211,7 +211,7 @@ def synthesize_regulatory_response(query: str, hit: dict) -> str:
     source = hit["source"]
     text = hit["text"]
     
-    # 1. Native Gemini 1.5 Flash synthesis with strict relevance adherence
+    # 1. Native Gemini 2.5 Flash synthesis with strict relevance adherence
     if API_KEY or os.environ.get("GOOGLE_APPLICATION_CREDENTIALS") or os.environ.get("GCP_PROJECT_ID") or os.environ.get("GOOGLE_CLOUD_PROJECT"):
         try:
             client = get_gemini_client()
@@ -226,13 +226,13 @@ def synthesize_regulatory_response(query: str, hit: dict) -> str:
                 f"4. Do NOT guess, hallucinate, or speculate."
             )
             resp = client.models.generate_content(
-                model="gemini-1.5-flash-002",
+                model="gemini-2.5-flash",
                 contents=prompt
             )
             if resp.text and len(resp.text.strip()) > 30:
                 return resp.text.strip()
         except Exception as exc:
-            print(f"[Gemini 1.5 Flash] Synthesis warning: {exc}")
+            print(f"[Gemini 2.5 Flash] Synthesis warning: {exc}")
 
     # 2. Deterministic Clean Formulation: Complete sentences only, zero partial cuts
     body_text = re.sub(r'={5,}.*?={5,}', '', text, flags=re.DOTALL).strip()
@@ -421,8 +421,6 @@ def serve_ui():
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>VaultGuard — Enterprise Credit Underwriting Copilot</title>
-    <link rel="preconnect" href="https://fonts.googleapis.com">
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
     <style>
         :root {
             --bg: #090d16;
@@ -435,7 +433,7 @@ def serve_ui():
             --text-main: #f1f5f9;
             --text-muted: #94a3b8;
         }
-        * { box-sizing: border-box; margin: 0; padding: 0; font-family: 'Inter', sans-serif; }
+        * { box-sizing: border-box; margin: 0; padding: 0; font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Inter", sans-serif; }
         body { background: var(--bg); color: var(--text-main); height: 100vh; height: 100dvh; display: flex; flex-direction: column; overflow: hidden; }
         
         /* Header */
@@ -744,7 +742,7 @@ def serve_ui():
             </div>
         </div>
         <div class="header-actions">
-            <div class="pill active">🟢 Gemini 1.5 Flash Live</div>
+            <div class="pill active">🟢 Gemini 2.5 Flash Live</div>
             <div id="pill-dlp" class="pill">🛡️ Zero-Trust DLP</div>
             <div id="top-latency" class="pill latency">⚡ 0.2ms</div>
             <button class="admin-btn" onclick="toggleAdminDrawer()">⚙️ Admin & Metrics</button>

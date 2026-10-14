@@ -1,5 +1,5 @@
 # =============================================================================
-# HYD_GEMINI_REQUIREMENTS.txt — VaultGuard 100% Native Google Cloud Dependencies
+# requirements.txt — VaultGuard 100% Native Google Cloud Dependencies
 # Project: VaultGuard — Enterprise Credit Underwriting & Compliance AI Copilot
 # Architecture: 100% Native Google Cloud Platform (Zero Third-Party Libraries)
 # Environment: Python 3.12 (Pinned & Conflict-Free)
@@ -9,13 +9,11 @@
 fastapi>=0.115.0
 uvicorn[standard]>=0.30.0
 pydantic>=2.8.0
-python-multipart>=0.0.9             # Essential for 📎 PDF & collateral document uploads
+python-multipart>=0.0.9             # Essential for PDF & collateral document uploads
 python-dotenv>=1.0.1
-pyyaml>=6.0.1
-requests>=2.32.0
 
 # ─── 2. GOOGLE GEMINI & VERTEX AI CORE (NATIVE AGENT ENGINE) ─────────────────
-google-genai>=0.1.1                 # Next-gen Google GenAI SDK (Gemini 1.5 Flash Native Agent & Tools)
+google-genai>=0.1.1                 # Google GenAI SDK (Gemini 2.5 Flash Native Agent, Multimodal PDF, Tools)
 google-cloud-aiplatform>=1.60.0     # Vertex AI SDK (Vector Search, Multimodal Embeddings)
 
 # ─── 3. GOOGLE CLOUD NATIVE ENTERPRISE SERVICES ──────────────────────────────
@@ -23,6 +21,3 @@ google-cloud-dlp>=3.18.0            # Cloud Sensitive Data Protection (PAN, Aadh
 google-cloud-discoveryengine>=0.13.0 # Vertex AI Search Ranking API (Google Neural Reranker)
 google-cloud-storage>=2.18.0        # Google Cloud Storage (Serverless Document Vault)
 google-cloud-firestore>=2.18.0      # Google Cloud Firestore (Serverless Session & State Saver)
-
-# ─── 4. DOCUMENT EXTRACTION & VERIFICATION ───────────────────────────────────
-pdfplumber>=0.11.4                  # PDF table and text extraction

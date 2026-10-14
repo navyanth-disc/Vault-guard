@@ -10,8 +10,8 @@
 
 ## 2. 100% Native Google Cloud Platform Mandate
 Every agent working on this repository must strictly adhere to native Google Cloud services:
-1. **Foundation Model**: Google Gemini 1.5 Flash (`gemini-1.5-flash-002`) via `google-genai` / Vertex AI.
-2. **Multimodal Document Inspection**: Native Gemini 1.5 Flash PDF token processing via `types.Part.from_bytes` (Zero 3rd-party OCR).
+1. **Foundation Model**: Google Gemini 2.5 Flash (`gemini-2.5-flash`) via `google-genai` / Vertex AI.
+2. **Multimodal Document Inspection**: Native Gemini 2.5 Flash PDF token processing via `types.Part.from_bytes` (Zero 3rd-party OCR or PDF parsers).
 3. **PII Masking & Compliance**: Google Cloud Sensitive Data Protection (`google-cloud-dlp` / `dlp_v2`) with regex fallback.
 4. **Agent Tool Calling**: Gemini Native Function Calling (`google.genai.types.Tool`, `FunctionDeclaration`).
 5. **State & Session Persistence**: Google Cloud Firestore (`google-cloud-firestore`) / in-memory session store.
